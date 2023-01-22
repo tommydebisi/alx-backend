@@ -49,10 +49,7 @@ class Server:
 
         data_len = len(list_data)
         # check if start index can be accessed
-        if start >= data_len:
+        if start >= data_len or end >= data_len:
             return []
-
-        if end >= data_len:
-            end = end - (end - data_len)
 
         return list_data[start: end]
