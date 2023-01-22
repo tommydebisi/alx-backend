@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+    2-hypermedia_pagination mod
+"""
 import csv
 import math
 from typing import List, Tuple, Dict
@@ -65,13 +69,14 @@ class Server:
         """
         data = self.get_page(page, page_size)
         len_data = len(self.__dataset)
-        next_page = page + 1
         prev_page = None if page == 1 else page - 1
         total_pages = len_data // page_size
         start, end = index_range(page, page_size)
 
         if end >= len_data:
             next_page = None
+        else:
+            next_page = page + 1
 
         if len_data % page_size != 0:
             total_pages += 1
