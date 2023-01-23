@@ -45,7 +45,7 @@ class Server:
         """
         self.indexed_dataset()
         len_data = len(self.__indexed_dataset)
-        assert type(index) == int
+        assert type(index) == int and type(page_size) == int
         assert index < len_data
 
         data_list = []
@@ -57,6 +57,7 @@ class Server:
                 count += 1
 
             if count == page_size:
+                # check if next_ind is not the total length of data
                 next_ind = iter + 1 if iter + 1 != len_data else None
                 break
 
