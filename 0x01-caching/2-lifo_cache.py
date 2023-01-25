@@ -13,8 +13,6 @@ class LIFOCache(BaseCaching):
     def __init__(self):
         """ constructor function """
         self.__cache_checker = []
-        self.__counter = BaseCaching.MAX_ITEMS - 1
-        self.__repeat = 0
         super().__init__()
 
     def put(self, key, item):
@@ -29,20 +27,16 @@ class LIFOCache(BaseCaching):
             self.__cache_checker.append(key)
         else:
             if self.cache_data.get(key):
-                self.__repeat = 1
+                self.__cache_checker.pop(self.__cache_checker.index(key))
+                self.__cache_checker.append(key)
                 return
 
-            discarded = self.__cache_checker.pop(self.__counter)
+            discarded = self.__cache_checker.pop(BaseCaching.MAX_ITEMS - 1)
             del self.cache_data[discarded]
             print("DISCARD: {}".format(discarded))
 
             self.cache_data[key] = item
             self.__cache_checker.append(key)
-            self.__counter -= 1
-
-            if self.__counter == -1 or self.__repeat:  # reset count
-                self.__counter = BaseCaching.MAX_ITEMS - 1
-                self.__repeat = 0
 
     def get(self, key):
         """ gets the value at the given key in the caching sytem """
