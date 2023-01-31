@@ -1,0 +1,4 @@
+messages.pot
+babel.cfg
+*pycache*
+*mypy*
