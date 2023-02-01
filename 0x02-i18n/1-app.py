@@ -5,9 +5,17 @@
 from flask import Flask, render_template
 from flask_babel import Babel
 
-Config = __import__('config').Config
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
+
+
+class Config:
+    """ config class """
+    LANGUAGES = ['en', 'fr']
+    TIMEZONE = 'UTC'
+
+
+app.config['BABEL_DEFAULT_LOCALE'] = Config.LANGUAGES[0]
+app.config['BABEL_DEFAULT_TIMEZONE'] = Config.TIMEZONE
 babel = Babel(app)
 
 
