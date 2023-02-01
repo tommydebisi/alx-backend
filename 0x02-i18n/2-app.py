@@ -2,14 +2,23 @@
 """ 2-app mod """
 from flask import Flask, request, render_template
 from flask_babel import Babel
+from typing import Optional
 
-Config = __import__('config').Config
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
+
+
+class Config:
+    """ config class """
+    LANGUAGES = ['en', 'fr']
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
+
+
+app.config.from_object(Config)
 babel = Babel(app)
 
 
-def get_locale() -> str:
+def get_locale() -> Optional[str]:
     """ get the translation best match """
     return request.accept_languages.best_match(Config.LANGUAGES)
 

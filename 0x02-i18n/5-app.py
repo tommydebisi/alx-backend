@@ -4,9 +4,17 @@ from flask import Flask, request, render_template, g
 from flask_babel import Babel, _
 from typing import Union, Dict
 
-Config = __import__('config').Config
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
+
+
+class Config:
+    """ config class """
+    LANGUAGES = ['en', 'fr']
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
+
+
+app.config.from_object(Config)
 babel = Babel(app)
 
 users = {

@@ -5,11 +5,18 @@ from flask_babel import Babel, _
 from typing import Dict, Union
 import pytz
 
-Config = __import__('config').Config
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
-babel = Babel(app)
 
+
+class Config:
+    """ config class """
+    LANGUAGES = ['en', 'fr']
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
+
+
+app.config.from_object(Config)
+babel = Babel(app)
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
     2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
