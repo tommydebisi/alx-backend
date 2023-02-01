@@ -2,7 +2,6 @@
 """ 2-app mod """
 from flask import Flask, request, render_template
 from flask_babel import Babel
-from typing import Optional
 
 app = Flask(__name__)
 
@@ -17,13 +16,10 @@ class Config:
 app.config.from_object(Config)
 babel = Babel(app)
 
-
-def get_locale() -> Optional[str]:
+@babel.localselector
+def get_locale() -> str:
     """ get the translation best match """
     return request.accept_languages.best_match(Config.LANGUAGES)
-
-
-babel.init_app(app, locale_selector=get_locale)
 
 
 @app.route('/', strict_slashes=False)
