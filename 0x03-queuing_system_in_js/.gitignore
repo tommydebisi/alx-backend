@@ -1,0 +1,5 @@
+*babel*
+node*
+package.json
+package-lock.json
+redis*
